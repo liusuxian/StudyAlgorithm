@@ -46,26 +46,23 @@
      * }
      */
     func preorder(root *Node) []int {
-        ret := make([]int, 0)
-        if root == nil {
-            return ret
-        }
-            
-        stack := []*Node{root}
-        for len(stack) > 0 {
-            topNode := stack[len(stack)-1]
-            stack = stack[:len(stack)-1]
-            ret = append(ret, topNode.Val)
-        
-            for i := len(topNode.Children) - 1; i >= 0; i-- {
-                child := topNode.Children[i]
-                if child.Children != nil {
-                    stack = append(stack, child)
-                }
-            }
-        }
-        
-        return ret
+    	ret := make([]int, 0)
+    	if root == nil {
+    		return ret
+    	}
+    
+    	stack := []*Node{root}
+    	for len(stack) > 0 {
+    		topNode := stack[len(stack)-1]
+    		stack = stack[:len(stack)-1]
+    		ret = append(ret, topNode.Val)
+    
+    		for i := len(topNode.Children) - 1; i >= 0; i-- {
+    			stack = append(stack, topNode.Children[i])
+    		}
+    	}
+    
+    	return ret
     }
 ***
 #### 题目
@@ -107,7 +104,6 @@
 ###### 时间复杂度：时间复杂度：O(M)，其中 M 是 N 叉树中的节点个数。每个节点只会入栈和出栈各一次。
 ###### 空间复杂度：O(M)。在最坏的情况下，这棵 N 叉树只有 2 层，所有第 2 层的节点都是根节点的孩子。将根节点推出栈后，需要将这些节点都放入栈，共有 M−1 个节点，因此栈的大小为 O(M)。
 ##### Golang实现
-    
 ***
 #### 题目
 ##### 429. N 叉树的层序遍历
