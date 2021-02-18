@@ -104,6 +104,36 @@
 ###### 时间复杂度：时间复杂度：O(M)，其中 M 是 N 叉树中的节点个数。每个节点只会入栈和出栈各一次。
 ###### 空间复杂度：O(M)。在最坏的情况下，这棵 N 叉树只有 2 层，所有第 2 层的节点都是根节点的孩子。将根节点推出栈后，需要将这些节点都放入栈，共有 M−1 个节点，因此栈的大小为 O(M)。
 ##### Golang实现
+    /**
+     * Definition for a Node.
+     * type Node struct {
+     *     Val int
+     *     Children []*Node
+     * }
+     */
+    func postorder(root *Node) []int {
+        ret := make([]int, 0)
+        if root == nil {
+            return ret
+        }
+    
+        stack := []*Node{root}
+        for len(stack) > 0 {
+            topNode := stack[len(stack)-1]
+            stack = stack[:len(stack)-1]
+            ret = append(ret, topNode.Val)
+            stack = append(stack, topNode.Children...)
+        }
+    
+        return reverse(ret)
+    }
+    
+    func reverse(ret []int) []int {
+        for i, j := 0, len(ret)-1; i < j; i, j = i+1, j-1 {
+            ret[i], ret[j] = ret[j], ret[i]
+        }
+        return ret
+    }
 ***
 #### 题目
 ##### 429. N 叉树的层序遍历
@@ -131,14 +161,16 @@
         for len(queue) > 0 {
             level := make([]int, 0)
             size := len(queue)
+    
             for i := 0; i < size; i++ {
-                p := queue[0]
+                head := queue[0]
                 queue = queue[1:]
-                level = append(level, p.Val)
-                queue = append(queue, p.Children...)
+                level = append(level, head.Val)
+                queue = append(queue, head.Children...)
             }
             ret = append(ret, level)
         }
+    
         return ret
     }
 #### 方法二：递归
@@ -157,17 +189,18 @@
         ret := make([][]int, 0)
     
         if root != nil {
-            var traverseNode func(*Node, int)
-            traverseNode = func(root *Node, level int) {
+            var doLevelOrder func(*Node, int)
+    
+            doLevelOrder = func(node *Node, level int) {
                 if len(ret) <= level {
                     ret = append(ret, []int{})
                 }
-                ret[level] = append(ret[level], root.Val)
-                for _, child := range root.Children {
-                    traverseNode(child, level+1)
+                ret[level] = append(ret[level], node.Val)
+                for _, child := range node.Children {
+                    doLevelOrder(child, level+1)
                 }
             }
-            traverseNode(root, 0)
+            doLevelOrder(root, 0)
         }
     
         return ret
