@@ -160,9 +160,7 @@
         queue := []*Node{root}
         for len(queue) > 0 {
             level := make([]int, 0)
-            size := len(queue)
-    
-            for i := 0; i < size; i++ {
+            for i := len(queue); i > 0; i-- {
                 head := queue[0]
                 queue = queue[1:]
                 level = append(level, head.Val)
