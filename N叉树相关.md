@@ -194,6 +194,7 @@
                     ret = append(ret, []int{})
                 }
                 ret[level] = append(ret[level], node.Val)
+                
                 for _, child := range node.Children {
                     doLevelOrder(child, level+1)
                 }
