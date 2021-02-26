@@ -46,23 +46,23 @@
      * }
      */
     func preorder(root *Node) []int {
-    	ret := make([]int, 0)
-    	if root == nil {
-    		return ret
-    	}
-    
-    	stack := []*Node{root}
-    	for len(stack) > 0 {
-    		topNode := stack[len(stack)-1]
-    		stack = stack[:len(stack)-1]
-    		ret = append(ret, topNode.Val)
-    
-    		for i := len(topNode.Children) - 1; i >= 0; i-- {
-    			stack = append(stack, topNode.Children[i])
-    		}
-    	}
-    
-    	return ret
+        ret := make([]int, 0)
+        if root == nil {
+            return ret
+        }
+        
+        stack := []*Node{root}
+        for len(stack) > 0 {
+            topNode := stack[len(stack)-1]
+            stack = stack[:len(stack)-1]
+            ret = append(ret, topNode.Val)
+            
+            for i := len(topNode.Children) - 1; i >= 0; i-- {
+                stack = append(stack, topNode.Children[i])
+            }
+        }
+        
+        return ret
     }
 ***
 #### 题目
