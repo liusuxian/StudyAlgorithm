@@ -19,4 +19,40 @@ learning algorithm
     func inArea(grid [][]byte, r, c int) bool {
         return r >= 0 && r < len(grid) && c >= 0 && c < len(grid[0])
     }
-#####
+##### 递归代码模版
+    func recur(level int, param int) {
+        // terminator
+        if level > MAX_LEVEL {
+            // process result
+            return
+        }
+        
+        // process current logic
+        process(level, param)
+        
+        // drill down
+        recur(level + 1, newParam)
+        
+        // restore current status
+    }
+##### 分治代码模版
+    func divide_conquer(problem *Problem, param int) int {
+        // recursion terminator
+        if problem == nil {
+            process_result
+            return return_result
+        }
+        
+        // process current problem
+        subproblems := split_problem(problem, data)
+        subresult1 := divide_conquer(subproblem[0], p1)
+        subresult2 := divide_conquer(subproblem[1], p1)
+        subresult3 := divide_conquer(subproblem[2], p1)
+        ...
+        
+        // merge
+        result := process_result(subresult1, subresult2, subresult3)
+        // revert the current level status
+        
+        return result
+    }
