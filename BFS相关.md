@@ -151,7 +151,7 @@
 ###### 时间复杂度：O()。
 ###### 空间复杂度：O()。
 ##### Golang实现
-<pre name="code" class="go">
+``` go
 func minMutation(start string, end string, bank []string) int {
 	// 将bank存储到集合中
 	geneticSet := map[string]bool{}
@@ -199,5 +199,5 @@ func minMutation(start string, end string, bank []string) int {
 
 	return -1
 }
-</pre>
+```
 ***
