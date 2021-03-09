@@ -148,25 +148,25 @@
 ##### https://leetcode-cn.com/problems/minimum-genetic-mutation/
 #### 方法一：单向广度优先搜索
 ##### 复杂度分析
-###### 时间复杂度：O()。
+###### 时间复杂度：O(n + )。
 ###### 空间复杂度：O()。
 ##### Golang实现
 ``` go
 func minMutation(start string, end string, bank []string) int {
     // 将bank存储到集合中
-    geneticSet := map[string]bool{}
+    bankSet := map[string]bool{}
     for _, genetic := range bank {
-        geneticSet[genetic] = true
+        bankSet[genetic] = true
     }
 
     // 检查end是否在集合中
-    if _, ok := geneticSet[end]; !ok {
+    if _, ok := bankSet[end]; !ok {
         return -1
     }
 
     dict := []byte{'A', 'C', 'G', 'T'}
     queue := []string{start}
-    delete(geneticSet, start)
+    delete(bankSet, start)
 
     step := 0
     for len(queue) > 0 {
@@ -185,10 +185,10 @@ func minMutation(start string, end string, bank []string) int {
                         // 如果和最后一个元素匹配，直接返回
                         return step
                     }
-                    if _, ok := geneticSet[newGenetic]; ok {
+                    if _, ok := bankSet[newGenetic]; ok {
                         // 合法的基因串
                         queue = append(queue, newGenetic)
-                        delete(geneticSet, newGenetic)
+                        delete(bankSet, newGenetic)
                     }
                 }
                 // 还原
