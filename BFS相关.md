@@ -148,27 +148,30 @@
 ##### https://leetcode-cn.com/problems/minimum-genetic-mutation/
 #### 方法一：单向广度优先搜索
 ##### 复杂度分析
-###### 时间复杂度：O(n + )。
-###### 空间复杂度：O()。
+###### 时间复杂度：O(N×C^2)。其中 N 为 bank 的长度，C 为列表中字符串的长度。
+###### 空间复杂度：O(N×C^2)。其中 N 为 bank 的长度，C 为列表中字符串的长度。哈希表中包含 O(N×C) 个节点，每个节点占用空间 O(C)，因此总的空间复杂度为 O(N×C^2)。
 ##### Golang实现
 ``` go
 func minMutation(start string, end string, bank []string) int {
-    // 将bank存储到集合中
+    // 将 bank 存储到 bankSet 集合中
     bankSet := map[string]bool{}
     for _, genetic := range bank {
         bankSet[genetic] = true
     }
-
-    // 检查end是否在集合中
+    // 检查 end 是否在 bankSet 集合中
     if _, ok := bankSet[end]; !ok {
         return -1
+    }
+    // 检查 start 和 end 是否相同
+    if start == end {
+        return 0
     }
 
     dict := []byte{'A', 'C', 'G', 'T'}
     queue := []string{start}
-    delete(bankSet, start)
-
+    visited := map[string]bool{start: true}
     step := 0
+
     for len(queue) > 0 {
         step++
         for i := len(queue); i > 0; i-- {
@@ -181,14 +184,89 @@ func minMutation(start string, end string, bank []string) int {
                 for _, dv := range dict {
                     genetic[j] = dv // 修改为dict中的字符
                     newGenetic := string(genetic)
+                    // 已经访问过了，跳过
+                    if _, ok := visited[newGenetic]; ok {
+                        continue
+                    }
                     if newGenetic == end {
                         // 如果和最后一个元素匹配，直接返回
                         return step
                     }
+                    // 如果新的基因序列在 bankSet 集合中存在，将其添加到队列，并标记为已访问
                     if _, ok := bankSet[newGenetic]; ok {
-                        // 合法的基因串
                         queue = append(queue, newGenetic)
-                        delete(bankSet, newGenetic)
+                        visited[newGenetic] = true
+                    }
+                }
+                // 还原
+                genetic[j] = oldChar
+            }
+        }
+    }
+
+    return -1
+}
+```
+#### 方法二：双向广度优先搜索
+##### 复杂度分析
+###### 时间复杂度：O(N×C^2)。其中 N 为 bank 的长度，C 为列表中字符串的长度。
+###### 空间复杂度：O(N×C^2)。其中 N 为 bank 的长度，C 为列表中字符串的长度。哈希表中包含 O(N×C) 个节点，每个节点占用空间 O(C)，因此总的空间复杂度为 O(N×C^2)。
+##### Golang实现
+``` go
+func minMutation(start string, end string, bank []string) int {
+    // 将 bank 存储到 bankSet 集合中
+    bankSet := map[string]bool{}
+    for _, genetic := range bank {
+        bankSet[genetic] = true
+    }
+    // 检查 end 是否在 bankSet 集合中
+    if _, ok := bankSet[end]; !ok {
+        return -1
+    }
+    // 检查 start 和 end 是否相同
+    if start == end {
+        return 0
+    }
+
+    dict := []byte{'A', 'C', 'G', 'T'}
+    // 从两端 BFS 遍历要用的队列
+    startQueue := []string{start}
+    endQueue := []string{end}
+    // 两端已经遍历过的节点
+    startVisited := map[string]bool{start: true}
+    endVisited := map[string]bool{end: true}
+    step := 0
+
+    for len(startQueue) > 0 && len(endQueue) > 0 {
+        step++
+        // 每次判断正向是否比负向的元素更多。我们选择元素更小的那个继续更新。
+        if len(startQueue) > len(endQueue) {
+            startQueue, endQueue = endQueue, startQueue
+            startVisited, endVisited = endVisited, startVisited
+        }
+
+        for i := len(startQueue); i > 0; i-- {
+            // 出队
+            genetic := []byte(startQueue[0])
+            startQueue = startQueue[1:]
+
+            for j := 0; j < len(genetic); j++ {
+                oldChar := genetic[j] // 临时保存
+                for _, dv := range dict {
+                    genetic[j] = dv // 修改为dict中的字符
+                    newGenetic := string(genetic)
+                    // 已经访问过了，跳过
+                    if _, ok := startVisited[newGenetic]; ok {
+                        continue
+                    }
+                    // 两端遍历相遇，结束遍历，返回 step
+                    if _, ok := endVisited[newGenetic]; ok {
+                        return step
+                    }
+                    // 如果新的基因序列在 bankSet 集合中存在，将其添加到队列，并标记为已访问
+                    if _, ok := bankSet[newGenetic]; ok {
+                        startQueue = append(startQueue, newGenetic)
+                        startVisited[newGenetic] = true
                     }
                 }
                 // 还原
