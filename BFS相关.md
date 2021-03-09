@@ -152,52 +152,52 @@
 ###### 空间复杂度：O()。
 ##### Golang实现
 ``` go
-func minMutation(start string, end string, bank []string) int {
-	// 将bank存储到集合中
-	geneticSet := map[string]bool{}
-	for _, genetic := range bank {
-		geneticSet[genetic] = true
-	}
+    func minMutation(start string, end string, bank []string) int {
+		// 将bank存储到集合中
+		geneticSet := map[string]bool{}
+		for _, genetic := range bank {
+			geneticSet[genetic] = true
+		}
 
-	// 检查end是否在集合中
-	if _, ok := geneticSet[end]; !ok {
-		return -1
-	}
+		// 检查end是否在集合中
+		if _, ok := geneticSet[end]; !ok {
+			return -1
+		}
 
-	dict := []byte{'A', 'C', 'G', 'T'}
-	queue := []string{start}
-	delete(geneticSet, start)
+		dict := []byte{'A', 'C', 'G', 'T'}
+		queue := []string{start}
+		delete(geneticSet, start)
 
-	step := 0
-	for len(queue) > 0 {
-		step++
-		for i := len(queue); i > 0; i-- {
-			// 出队
-			genetic := []byte(queue[0])
-			queue = queue[1:]
+		step := 0
+		for len(queue) > 0 {
+			step++
+			for i := len(queue); i > 0; i-- {
+				// 出队
+				genetic := []byte(queue[0])
+				queue = queue[1:]
 
-			for j := 0; j < len(genetic); j++ {
-				oldChar := genetic[j] // 临时保存
-				for _, dv := range dict {
-					genetic[j] = dv // 修改为dict中的字符
-					newGenetic := string(genetic)
-					if newGenetic == end {
-						// 如果和最后一个元素匹配，直接返回
-						return step
+				for j := 0; j < len(genetic); j++ {
+					oldChar := genetic[j] // 临时保存
+					for _, dv := range dict {
+						genetic[j] = dv // 修改为dict中的字符
+						newGenetic := string(genetic)
+						if newGenetic == end {
+							// 如果和最后一个元素匹配，直接返回
+							return step
+						}
+						if _, ok := geneticSet[newGenetic]; ok {
+							// 合法的基因串
+							queue = append(queue, newGenetic)
+							delete(geneticSet, newGenetic)
+						}
 					}
-					if _, ok := geneticSet[newGenetic]; ok {
-						// 合法的基因串
-						queue = append(queue, newGenetic)
-						delete(geneticSet, newGenetic)
-					}
+					// 还原
+					genetic[j] = oldChar
 				}
-				// 还原
-				genetic[j] = oldChar
 			}
 		}
-	}
 
-	return -1
-}
+		return -1
+	}
 ```
 ***
