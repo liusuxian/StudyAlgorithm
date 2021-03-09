@@ -5,7 +5,7 @@
 ##### https://leetcode-cn.com/problems/word-ladder/
 #### 方法一：单向广度优先搜索
 ##### 复杂度分析
-###### 时间复杂度：O(N + N*M*26)。其中 N 为 wordList 的长度，M 为列表中单词的长度。
+###### 时间复杂度：O(N + N * M * 26)。其中 N 为 wordList 的长度，M 为列表中单词的长度。
 ###### 空间复杂度：O(N)。其中 N 为 wordList 的长度。
 ##### Golang实现
 ``` go
@@ -61,7 +61,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 ```
 #### 方法二：双向广度优先搜索
 ##### 复杂度分析
-###### 时间复杂度：O(N + N*M*26)。其中 N 为 wordList 的长度，M 为列表中单词的长度。
+###### 时间复杂度：O(N + N * M * 26)。其中 N 为 wordList 的长度，M 为列表中单词的长度。
 ###### 空间复杂度：O(N)。其中 N 为 wordList 的长度。
 ##### Golang实现
 ``` go
@@ -132,7 +132,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
 ##### https://leetcode-cn.com/problems/minimum-genetic-mutation/
 #### 方法一：单向广度优先搜索
 ##### 复杂度分析
-###### 时间复杂度：O(N + N*M*4)。其中 N 为 bank 的长度，M 为列表中单词的长度。
+###### 时间复杂度：O(N + N * M * 4)。其中 N 为 bank 的长度，M 为列表中单词的长度。
 ###### 空间复杂度：O(N)。其中 N 为 bank 的长度。
 ##### Golang实现
 ``` go
@@ -193,7 +193,7 @@ func minMutation(start string, end string, bank []string) int {
 ```
 #### 方法二：双向广度优先搜索
 ##### 复杂度分析
-###### 时间复杂度：O(N + N*M*4)。其中 N 为 bank 的长度，M 为列表中单词的长度。
+###### 时间复杂度：O(N + N * M * 4)。其中 N 为 bank 的长度，M 为列表中单词的长度。
 ###### 空间复杂度：O(N)。其中 N 为 bank 的长度。
 ##### Golang实现
 ``` go
