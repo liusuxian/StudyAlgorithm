@@ -127,13 +127,13 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 }
 ```
 ***
+\frac{7x+5}{1+y^2}
 #### 题目
 ##### 22. 括号生成
 #### 地址
 ##### https://leetcode-cn.com/problems/generate-parentheses/#/description
 #### 方法一：回溯
 ##### 复杂度分析
-\frac{7x+5}{1+y^2}
 - 时间复杂度：O( \ frac { 4n } { \sqrt{ n } } )。
 - 空间复杂度：O(n)。
 ##### Golang实现
