@@ -127,7 +127,9 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 }
 ```
 ***
+```
 \frac{7x+5}{1+y^2}
+```
 #### 题目
 ##### 22. 括号生成
 #### 地址
