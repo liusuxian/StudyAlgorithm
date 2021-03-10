@@ -5,8 +5,8 @@
 ##### https://leetcode-cn.com/problems/combinations/
 #### 方法一：回溯
 ##### 复杂度分析
-###### 时间复杂度：O(k^n*k)。
-###### 空间复杂度：O(n)。
+- 时间复杂度：O(k^n*k)。
+- 空间复杂度：O(n)。
 ##### Golang实现
 ``` go
 func combine(n int, k int) [][]int {
@@ -38,8 +38,8 @@ func backtrack(index, n, k int, comb []int, combs *[][]int) {
 ##### https://leetcode-cn.com/problems/permutations/
 #### 方法一：回溯
 ##### 复杂度分析
-###### 时间复杂度：O(n*n!)。
-###### 空间复杂度：O(n)。
+- 时间复杂度：O(n*n!)。
+- 空间复杂度：O(n)。
 ##### Golang实现
 ``` go
 func permute(nums []int) [][]int {
@@ -83,8 +83,8 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 ##### https://leetcode-cn.com/problems/permutations-ii/
 #### 方法一：回溯
 ##### 复杂度分析
-###### 时间复杂度：O(n*n!)。
-###### 空间复杂度：O(n)。
+- 时间复杂度：O(n*n!)。
+- 空间复杂度：O(n)。
 ##### Golang实现
 ``` go
 func permuteUnique(nums []int) [][]int {
@@ -127,16 +127,13 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 }
 ```
 ***
-```
-\frac{7x+5}{1+y^2}
-```
 #### 题目
 ##### 22. 括号生成
 #### 地址
 ##### https://leetcode-cn.com/problems/generate-parentheses/#/description
 #### 方法一：回溯
 ##### 复杂度分析
-- 时间复杂度：O( \ frac { 4n } { \sqrt{ n } } )。
+- 时间复杂度：O(4^n/sqrt(n))。
 - 空间复杂度：O(n)。
 ##### Golang实现
 ``` go
