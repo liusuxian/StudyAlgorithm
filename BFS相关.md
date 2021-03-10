@@ -263,3 +263,57 @@ func minMutation(start string, end string, bank []string) int {
 }
 ```
 ***
+#### 题目
+##### 515. 在每个树行中找最大值
+#### 地址
+##### https://leetcode-cn.com/problems/find-largest-value-in-each-tree-row/#/description
+#### 方法一：广度优先搜索
+##### 复杂度分析
+- 时间复杂度：O(n)。
+- 空间复杂度：O(n)。
+##### Golang实现
+``` go
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func largestValues(root *TreeNode) []int {
+    ret := make([]int, 0)
+    if root == nil {
+        return ret
+    }
+
+    queue := []*TreeNode{root}
+    for len(queue) > 0 {
+        maxVal := math.MinInt64
+        for i := len(queue); i > 0; i-- {
+            head := queue[0]
+            queue = queue[1:]
+            maxVal = max(maxVal, head.Val)
+
+            if head.Left != nil {
+                queue = append(queue, head.Left)
+            }
+            if head.Right != nil {
+                queue = append(queue, head.Right)
+            }
+        }
+        ret = append(ret, maxVal)
+    }
+
+    return ret
+}
+
+func max(a, b int) int {
+    if a > b {
+        return a
+    }
+
+    return b
+}
+```
+***
