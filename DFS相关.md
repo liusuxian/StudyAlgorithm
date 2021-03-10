@@ -133,7 +133,7 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 ##### https://leetcode-cn.com/problems/generate-parentheses/#/description
 #### 方法一：回溯
 ##### 复杂度分析
-###### 时间复杂度：O({4n} \voer {n})。
+###### 时间复杂度：O(\frac{4n}{n})。
 ###### 空间复杂度：O(n)。
 ##### Golang实现
 ``` go
