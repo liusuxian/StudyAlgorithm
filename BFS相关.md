@@ -291,21 +291,67 @@ func largestValues(root *TreeNode) []int {
     for len(queue) > 0 {
         maxVal := math.MinInt64
         for i := len(queue); i > 0; i-- {
-            head := queue[0]
+            node := queue[0]
             queue = queue[1:]
-            maxVal = max(maxVal, head.Val)
+            maxVal = max(maxVal, node.Val)
 
-            if head.Left != nil {
-                queue = append(queue, head.Left)
+            if node.Left != nil {
+                queue = append(queue, node.Left)
             }
-            if head.Right != nil {
-                queue = append(queue, head.Right)
+            if node.Right != nil {
+                queue = append(queue, node.Right)
             }
         }
         ret = append(ret, maxVal)
     }
 
     return ret
+}
+
+func max(a, b int) int {
+    if a > b {
+        return a
+    }
+
+    return b
+}
+```
+#### 方法二：深度优先搜索
+##### 复杂度分析
+- 时间复杂度：O(n)。
+- 空间复杂度：O(n)。
+##### Golang实现
+``` go
+/**
+ * Definition for a binary tree node.
+ * type TreeNode struct {
+ *     Val int
+ *     Left *TreeNode
+ *     Right *TreeNode
+ * }
+ */
+func largestValues(root *TreeNode) []int {
+    ret := make([]int, 0)
+    if root == nil {
+        return ret
+    }
+
+    dfs(root, 0, &ret)
+    return ret
+}
+
+func dfs(node *TreeNode, level int, ret *[]int) {
+    if len(*ret) <= level {
+        *ret = append(*ret, math.MinInt64)
+    }
+    (*ret)[level] = max((*ret)[level], node.Val)
+
+    if node.Left != nil {
+        dfs(node.Left, level+1, ret)
+    }
+    if node.Right != nil {
+        dfs(node.Right, level+1, ret)
+    }
 }
 
 func max(a, b int) int {
