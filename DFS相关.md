@@ -127,3 +127,40 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 }
 ```
 ***
+#### 题目
+##### 22. 括号生成
+#### 地址
+##### https://leetcode-cn.com/problems/generate-parentheses/#/description
+#### 方法一：回溯
+##### 复杂度分析
+###### 时间复杂度：O({4n} \voer {n})。
+###### 空间复杂度：O(n)。
+##### Golang实现
+``` go
+func generateParenthesis(n int) []string {
+    ret := make([]string, 0)
+    dfs("", 0, 0, n, &ret)
+    return ret
+}
+
+func dfs(curStr string, left, right, n int, ret *[]string) {
+    if left == n && right == n {
+        *ret = append(*ret, curStr)
+        return
+    }
+
+    // 剪枝
+    if left < right {
+        return
+    }
+
+    if left < n {
+        dfs(curStr+"(", left+1, right, n, ret)
+    }
+
+    if right < n {
+        dfs(curStr+")", left, right+1, n, ret)
+    }
+}
+```
+***
