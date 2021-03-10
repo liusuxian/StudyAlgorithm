@@ -134,6 +134,7 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 #### 方法一：回溯
 ##### 复杂度分析
 ###### 时间复杂度：O(\frac{4n}{$\sqrt{n}$})。
+O(\frac{4n}{\sqrt{n}})。
 ###### 空间复杂度：O(n)。
 ##### Golang实现
 ``` go
