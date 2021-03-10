@@ -18,21 +18,23 @@
  */
 func preorder(root *Node) []int {
     ret := make([]int, 0)
-    var doPreorder func(*Node)
-
-    doPreorder = func(node *Node) {
-        if node == nil {
-            return
-        }
-
-        ret = append(ret, node.Val)
-        for _, child := range node.Children {
-            doPreorder(child)
-        }
+    if root == nil {
+        return ret
     }
-    doPreorder(root)
 
+    dfs(root, &ret)
     return ret
+}
+
+func dfs(node *Node, ret *[]int) {
+    if node == nil {
+        return
+    }
+
+    *ret = append(*ret, node.Val)
+    for _, child := range node.Children {
+        dfs(child, ret)
+    }
 }
 ```
 #### 方法二：迭代解法（栈）
