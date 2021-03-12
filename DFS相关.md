@@ -139,11 +139,11 @@ func backtrack(nums, path []int, used []bool, ret *[][]int) {
 ``` go
 func generateParenthesis(n int) []string {
     ret := make([]string, 0)
-    dfs("", 0, 0, n, &ret)
+    backtrack("", 0, 0, n, &ret)
     return ret
 }
 
-func dfs(curStr string, left, right, n int, ret *[]string) {
+func backtrack(curStr string, left, right, n int, ret *[]string) {
     if left == n && right == n {
         *ret = append(*ret, curStr)
         return
@@ -155,11 +155,11 @@ func dfs(curStr string, left, right, n int, ret *[]string) {
     }
 
     if left < n {
-        dfs(curStr+"(", left+1, right, n, ret)
+        backtrack(curStr+"(", left+1, right, n, ret)
     }
 
     if right < n {
-        dfs(curStr+")", left, right+1, n, ret)
+        backtrack(curStr+")", left, right+1, n, ret)
     }
 }
 ```
@@ -171,11 +171,11 @@ func dfs(curStr string, left, right, n int, ret *[]string) {
 ``` go
 func generateParenthesis(n int) []string {
     ret := make([]string, 0)
-    dfs("", n, n, &ret)
+    backtrack("", n, n, &ret)
     return ret
 }
 
-func dfs(curStr string, left, right int, ret *[]string) {
+func backtrack(curStr string, left, right int, ret *[]string) {
     if left == 0 && right == 0 {
         *ret = append(*ret, curStr)
         return
@@ -187,12 +187,61 @@ func dfs(curStr string, left, right int, ret *[]string) {
     }
 
     if left > 0 {
-        dfs(curStr+"(", left-1, right, ret)
+        backtrack(curStr+"(", left-1, right, ret)
     }
 
     if right > 0 {
-        dfs(curStr+")", left, right-1, ret)
+        backtrack(curStr+")", left, right-1, ret)
     }
+}
+```
+***
+#### 题目
+##### 322. 零钱兑换
+#### 地址
+##### https://leetcode-cn.com/problems/coin-change/
+#### 方法一：回溯
+##### 复杂度分析
+- 时间复杂度：O()。
+- 空间复杂度：O()。
+##### Golang实现
+``` go
+func coinChange(coins []int, amount int) int {
+    if amount == 0 {
+        return 0
+    }
+
+    sort.Ints(coins)
+    ret := math.MaxInt64
+    backtrack(&coins, amount, len(coins), 0, &ret)
+
+    if ret == math.MaxInt64 {
+        return -1
+    }
+
+    return ret
+}
+
+func backtrack(coins *[]int, amount, index, count int, ret *int) {
+    if amount == 0 {
+        *ret = min(*ret, count)
+        return
+    }
+    if index == 0 {
+        return
+    }
+
+    for i := amount / (*coins)[index-1]; i >= 0 && i+count < *ret; i-- {
+        backtrack(coins, amount-i*(*coins)[index-1], index-1, i+count, ret)
+    }
+}
+
+func min(a, b int) int {
+    if a > b {
+        return b
+    }
+
+    return a
 }
 ```
 ***

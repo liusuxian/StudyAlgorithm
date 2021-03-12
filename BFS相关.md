@@ -16,7 +16,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
         wordSet[word] = true
     }
     // 检查 endWord 是否在 wordSet 集合中
-    if _, ok := wordSet[endWord]; !ok {
+    if !wordSet[endWord] {
         return 0
     }
 
@@ -36,7 +36,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
                     word[j] = k
                     newWord := string(word)
                     // 已经访问过了，跳过
-                    if _, ok := visited[newWord]; ok {
+                    if visited[newWord] {
                         continue
                     }
                     if newWord == endWord {
@@ -44,7 +44,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
                         return step + 1
                     }
                     // 如果新的字符串在 wordSet 集合中存在，将其添加到队列，并标记为已访问
-                    if _, ok := wordSet[newWord]; ok {
+                    if wordSet[newWord] {
                         queue = append(queue, newWord)
                         visited[newWord] = true
                     }
@@ -72,7 +72,7 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
         wordSet[word] = true
     }
     // 检查 endWord 是否在 wordSet 集合中
-    if _, ok := wordSet[endWord]; !ok {
+    if !wordSet[endWord] {
         return 0
     }
 
@@ -102,15 +102,15 @@ func ladderLength(beginWord string, endWord string, wordList []string) int {
                     word[j] = k
                     newWord := string(word)
                     // 已经访问过了，跳过
-                    if _, ok := beginVisited[newWord]; ok {
+                    if beginVisited[newWord] {
                         continue
                     }
                     // 两端遍历相遇，结束遍历，返回 step
-                    if _, ok := endVisited[newWord]; ok {
+                    if endVisited[newWord] {
                         return step + 1
                     }
                     // 如果新的字符串在 wordSet 集合中存在，将其添加到队列，并标记为已访问
-                    if _, ok := wordSet[newWord]; ok {
+                    if wordSet[newWord] {
                         beginQueue = append(beginQueue, newWord)
                         beginVisited[newWord] = true
                     }
@@ -143,7 +143,7 @@ func minMutation(start string, end string, bank []string) int {
         bankSet[genetic] = true
     }
     // 检查 end 是否在 bankSet 集合中
-    if _, ok := bankSet[end]; !ok {
+    if !bankSet[end] {
         return -1
     }
     // 检查 start 和 end 是否相同
@@ -168,7 +168,7 @@ func minMutation(start string, end string, bank []string) int {
                     genetic[j] = dv // 修改为dict中的字符
                     newGenetic := string(genetic)
                     // 已经访问过了，跳过
-                    if _, ok := visited[newGenetic]; ok {
+                    if visited[newGenetic] {
                         continue
                     }
                     if newGenetic == end {
@@ -176,7 +176,7 @@ func minMutation(start string, end string, bank []string) int {
                         return step + 1
                     }
                     // 如果新的基因序列在 bankSet 集合中存在，将其添加到队列，并标记为已访问
-                    if _, ok := bankSet[newGenetic]; ok {
+                    if bankSet[newGenetic] {
                         queue = append(queue, newGenetic)
                         visited[newGenetic] = true
                     }
@@ -204,7 +204,7 @@ func minMutation(start string, end string, bank []string) int {
         bankSet[genetic] = true
     }
     // 检查 end 是否在 bankSet 集合中
-    if _, ok := bankSet[end]; !ok {
+    if !bankSet[end] {
         return -1
     }
     // 检查 start 和 end 是否相同
@@ -239,15 +239,15 @@ func minMutation(start string, end string, bank []string) int {
                     genetic[j] = dv // 修改为dict中的字符
                     newGenetic := string(genetic)
                     // 已经访问过了，跳过
-                    if _, ok := startVisited[newGenetic]; ok {
+                    if startVisited[newGenetic] {
                         continue
                     }
                     // 两端遍历相遇，结束遍历，返回 step
-                    if _, ok := endVisited[newGenetic]; ok {
+                    if endVisited[newGenetic] {
                         return step + 1
                     }
                     // 如果新的基因序列在 bankSet 集合中存在，将其添加到队列，并标记为已访问
-                    if _, ok := bankSet[newGenetic]; ok {
+                    if bankSet[newGenetic] {
                         startQueue = append(startQueue, newGenetic)
                         startVisited[newGenetic] = true
                     }
