@@ -29,7 +29,7 @@ func dfs(grid [][]int, memo *[][]int, row, col int) int {
     }
     // 若到达终点，终点的贡献值是其本身
     if row == len(grid)-1 && col == len(grid[0])-1 {
-        return grid[len(grid)-1][len(grid[0])-1]
+        return grid[row][col]
     }
     // 取两者的较小值，计算出当前点的最小路径值
     (*memo)[row][col] = min(dfs(grid, memo, row, col+1), dfs(grid, memo, row+1, col)) + grid[row][col]
