@@ -8,6 +8,10 @@ import (
 
 // 零钱兑换 回溯法 超时
 func coinChange(coins []int, amount int) int {
+    if amount == 0 {
+        return 0
+    }
+
     ret := math.MaxInt64
     sort.Slice(coins, func(i, j int) bool {
         return coins[i] > coins[j]
@@ -45,6 +49,7 @@ func min(a, b int) int {
 
     return a
 }
+
 func TestFun(t *testing.T) {
     t.Log(coinChange([]int{1, 2, 5}, 11))
     t.Log(coinChange([]int{2}, 3))
