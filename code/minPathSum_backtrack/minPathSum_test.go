@@ -29,6 +29,7 @@ func dfs(grid, dirs [][]int, row, col, sum int, ret *int) {
 
         sum += grid[nextRow][nextCol]
         dfs(grid, dirs, nextRow, nextCol, sum, ret)
+        // 回溯
         sum -= grid[nextRow][nextCol]
     }
 }
