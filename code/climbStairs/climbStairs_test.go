@@ -1,4 +1,4 @@
-package code
+package climbStairs
 
 import "testing"
 
@@ -40,7 +40,7 @@ func climbStairs1(n int) int {
     return dp[n][1] + dp[n][2] + dp[n][3]
 }
 
-func TestClimbStairs(t *testing.T) {
+func TestFun(t *testing.T) {
     t.Log(climbStairs(0))
     t.Log(climbStairs(1))
     t.Log(climbStairs(2))

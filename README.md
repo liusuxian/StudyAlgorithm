@@ -18,7 +18,11 @@ func dfs(grid [][]byte, r, c int) {
 
 // 判断坐标 (r, c) 是否在网格中
 func inArea(grid [][]byte, r, c int) bool {
-    return r >= 0 && r < len(grid) && c >= 0 && c < len(grid[0])
+    if r < 0 || c < 0 || r >= len(grid) || c >= len(grid[0]) {
+        return false
+    }
+    
+    return true
 }
 ```
 ##### 递归代码模版
@@ -80,5 +84,32 @@ func binarySearch(slice []int, target int) int {
     }
 
     return -1
+}
+```
+##### 回溯代码模版
+``` go
+func backtrack(nums []int) [][]int {
+    ret := make([][]int, 0)
+
+    dfs(nums, []int{}, &ret)
+    return ret
+}
+
+func dfs(nums, path []int, ret *[][]int) {
+    // recursion terminator
+    if len(path) == len(nums) {
+        // process_result
+        tempPath := make([]int, len(path))
+        copy(tempPath, path)
+        *ret = append(*ret, tempPath)
+        return
+    }
+
+    for i := 0; i < len(nums); i++ {
+        path = append(path, nums[i])
+        dfs(nums, path, used, ret)
+        // 回溯的过程中，将当前的节点从 path 中删除
+        path = path[:len(path)-1]
+    }
 }
 ```

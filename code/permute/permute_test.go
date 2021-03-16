@@ -1,4 +1,4 @@
-package code
+package permute
 
 import "testing"
 
