@@ -88,13 +88,6 @@ func binarySearch(slice []int, target int) int {
 ```
 ##### 回溯代码模版
 ``` go
-func backtrack(nums []int) [][]int {
-    ret := make([][]int, 0)
-
-    dfs(nums, []int{}, &ret)
-    return ret
-}
-
 func dfs(nums, path []int, ret *[][]int) {
     // recursion terminator
     if len(path) == len(nums) {
