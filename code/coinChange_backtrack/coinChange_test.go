@@ -32,13 +32,9 @@ func dfs(coins []int, amount, count int, ret *int) {
     }
 
     for _, coin := range coins {
-        if amount < coin {
-            continue
+        if amount-coin >= 0 && count+1 < *ret {
+            dfs(coins, amount-coin, count+1, ret)
         }
-
-        amount -= coin
-        dfs(coins, amount, count+1, ret)
-        amount += coin
     }
 }
 
