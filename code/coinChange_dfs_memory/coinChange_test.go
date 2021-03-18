@@ -20,10 +20,6 @@ func coinChange(coins []int, amount int) int {
 }
 
 func dfs(coins []int, memo []int, amount int) int {
-    if amount < 0 {
-        return -1
-    }
-
     if amount == 0 {
         return 0
     }
@@ -34,9 +30,12 @@ func dfs(coins []int, memo []int, amount int) int {
 
     minVal := math.MaxInt64
     for _, coin := range coins {
-        ret := dfs(coins, memo, amount-coin)
-        if ret >= 0 && ret < minVal {
-            minVal = ret + 1
+        if amount-coin >= 0 {
+            ret := dfs(coins, memo, amount-coin)
+            if ret >= 0 && ret < minVal {
+                // 加1，是为了加上得到 ret 结果的那个步骤中，兑换的一个硬币
+                minVal = ret + 1
+            }
         }
     }
 
@@ -47,14 +46,6 @@ func dfs(coins []int, memo []int, amount int) int {
     }
 
     return memo[amount-1]
-}
-
-func min(a, b int) int {
-    if a > b {
-        return b
-    }
-
-    return a
 }
 
 func TestFun(t *testing.T) {
