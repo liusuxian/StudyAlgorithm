@@ -122,3 +122,39 @@ func dfs(nums, path []int, ret *[][]int) {
 - 写出子问题的递推关系
 - 确定 DP 数组的计算顺序
 - 空间优化（可选）
+##### 快速排序思想以及代码模版
+- 1.选定基准值。
+- 2.分割，小于基准值放在左边，大于基准值放在右边。
+- 3.递归左右两个区间。
+
+- 基准值的选择决定了时间复杂度
+- 基准值每次都是当前区间的中间值时，操作数最少，时间复杂度为 O(nlog_{2}{n})。
+- 基准值每次都是当前区间的最小值或最大值时，操作数最多，时间复杂度为 O(n^2)。
+``` go
+func QuickSort(nums []int) {
+    QuickSortHelper(nums, 0, len(nums)-1)
+}
+
+func QuickSortHelper(nums []int, left, right int) {
+    if left >= right {
+        return
+    }
+
+    i, j, pivot := left, right, nums[left]
+    for i < j {
+        for i < j && nums[j] >= pivot {
+            j--
+        }
+        nums[i] = nums[j]
+
+        for i < j && nums[i] <= pivot {
+            i++
+        }
+        nums[j] = nums[i]
+    }
+
+    nums[i] = pivot
+    QuickSortHelper(nums, left, i-1)
+    QuickSortHelper(nums, i+1, right)
+}
+```
