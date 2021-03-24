@@ -1,8 +1,6 @@
 package quicksort
 
-import (
-    "testing"
-)
+import "testing"
 
 func QuickSort(nums []int) {
     QuickSortHelper(nums, 0, len(nums)-1)
