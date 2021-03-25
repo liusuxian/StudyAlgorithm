@@ -90,21 +90,23 @@ func preorder(root *Node) []int {
  */
 func postorder(root *Node) []int {
     ret := make([]int, 0)
-    var doPostorder func(*Node)
-
-    doPostorder = func(node *Node) {
-        if node == nil {
-            return
-        }
-
-        for _, child := range node.Children {
-            doPostorder(child)
-        }
-        ret = append(ret, node.Val)
+    if root == nil {
+        return ret
     }
-    doPostorder(root)
 
+    dfs(root, &ret)
     return ret
+}
+
+func dfs(node *Node, ret *[]int) {
+    if node == nil {
+        return
+    }
+
+    for _, child := range node.Children {
+        dfs(child, ret)
+    }
+    *ret = append(*ret, node.Val)
 }
 ```
 #### 方法二：迭代解法（栈）
@@ -133,15 +135,15 @@ func postorder(root *Node) []int {
         ret = append(ret, topNode.Val)
         stack = append(stack, topNode.Children...)
     }
+    reverse(ret)
 
-    return reverse(ret)
+    return ret
 }
 
-func reverse(ret []int) []int {
-    for i, j := 0, len(ret)-1; i < j; i, j = i+1, j-1 {
-        ret[i], ret[j] = ret[j], ret[i]
+func reverse(a []int) {
+    for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+        a[i], a[j] = a[j], a[i]
     }
-    return ret
 }
 ```
 ***
@@ -164,23 +166,28 @@ func reverse(ret []int) []int {
  */
 func levelOrder(root *Node) [][]int {
     ret := make([][]int, 0)
+    bfs(root, &ret)
+    return ret
+}
+
+func bfs(root *Node, ret *[][]int) {
     if root == nil {
-        return ret
+        return
     }
 
     queue := []*Node{root}
     for len(queue) > 0 {
-        level := make([]int, 0)
-        for i := len(queue); i > 0; i-- {
-            head := queue[0]
-            queue = queue[1:]
-            level = append(level, head.Val)
-            queue = append(queue, head.Children...)
-        }
-        ret = append(ret, level)
-    }
+        n := len(queue)
+        level := make([]int, n)
 
-    return ret
+        for i := 0; i < n; i++ {
+            headNode := queue[0]
+            queue = queue[1:]
+            level[i] = headNode.Val
+            queue = append(queue, headNode.Children...)
+        }
+        *ret = append(*ret, level)
+    }
 }
 ```
 #### 方法二：递归
