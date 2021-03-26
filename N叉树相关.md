@@ -205,24 +205,23 @@ func bfs(root *Node, ret *[][]int) {
  */
 func levelOrder(root *Node) [][]int {
     ret := make([][]int, 0)
-
-    if root != nil {
-        var doLevelOrder func(*Node, int)
-
-        doLevelOrder = func(node *Node, level int) {
-            if len(ret) <= level {
-                ret = append(ret, []int{})
-            }
-            ret[level] = append(ret[level], node.Val)
-
-            for _, child := range node.Children {
-                doLevelOrder(child, level+1)
-            }
-        }
-        doLevelOrder(root, 0)
+    if root == nil {
+        return ret
     }
 
+    dfs(root, 0, &ret)
     return ret
+}
+
+func dfs(node *Node, level int, ret *[][]int) {
+    if len(*ret) <= level {
+        *ret = append(*ret, []int{})
+    }
+    (*ret)[level] = append((*ret)[level], node.Val)
+
+    for _, child := range node.Children {
+        dfs(child, level+1, ret)
+    }
 }
 ```
 ***
