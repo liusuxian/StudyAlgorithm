@@ -18,10 +18,6 @@
  */
 func preorder(root *Node) []int {
     ret := make([]int, 0)
-    if root == nil {
-        return ret
-    }
-
     dfs(root, &ret)
     return ret
 }
@@ -90,10 +86,6 @@ func preorder(root *Node) []int {
  */
 func postorder(root *Node) []int {
     ret := make([]int, 0)
-    if root == nil {
-        return ret
-    }
-
     dfs(root, &ret)
     return ret
 }
