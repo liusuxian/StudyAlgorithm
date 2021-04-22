@@ -1,5 +1,5 @@
-# learning_algorithm
-learning algorithm
+# StudyAlgorithm
+StudyAlgorithm
 
 ##### 网格 DFS 遍历的模版代码：
 ``` go
