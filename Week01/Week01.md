@@ -73,3 +73,35 @@ func moveZeroes(nums []int) {
 }
 ```
 ***
+#### 题目
+##### 206. 反转链表
+#### 地址
+##### https://leetcode-cn.com/problems/reverse-linked-list/
+#### 方法一：循环遍历
+##### 复杂度分析
+- 时间复杂度：O(n)。
+- 空间复杂度：O(1)。
+##### Golang实现
+``` go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseList(head *ListNode) *ListNode {
+    var last *ListNode
+    // 要改每条边，所以需要访问链表
+    for head != nil {
+        nextHead := head.Next
+        // 改一条边
+        head.Next = last
+        // last，head 向后移动一位
+        last, head = head, nextHead
+    }
+    
+    return last
+}
+```
+***
