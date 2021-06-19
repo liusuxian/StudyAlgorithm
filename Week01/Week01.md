@@ -105,3 +105,77 @@ func reverseList(head *ListNode) *ListNode {
 }
 ```
 ***
+#### 题目
+##### 25. K 个一组翻转链表
+#### 地址
+##### https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
+#### 方法一：循环遍历
+##### 复杂度分析
+- 时间复杂度：O(n)。
+- 空间复杂度：O(1)。
+##### Golang实现
+``` go
+/**
+ * Definition for singly-linked list.
+ * type ListNode struct {
+ *     Val int
+ *     Next *ListNode
+ * }
+ */
+func reverseKGroup(head *ListNode, k int) *ListNode {
+    protect := &ListNode{Next: head}
+    // 分组（找到每一组的开始、结尾），按组遍历
+    // last = 上一组结尾
+    last := protect
+    for head != nil {
+        end := getEnd(head, k)
+        if end == nil {
+            break
+        }
+
+        nextGroupHead := end.Next
+        // 处理 head 到 end 之间的 k-1 条边的反转
+        reverseList(head, end)
+        // 上一组跟本组的新开始（旧end）建立联系
+        last.Next = end
+        // 本组的新结尾（head）跟下一组建立联系
+        head.Next = nextGroupHead
+        // 分组遍历
+        last, head = head, nextGroupHead
+    }
+
+    return protect.Next
+}
+
+func getEnd(head *ListNode, k int) *ListNode {
+    for head != nil {
+        k--
+        if k == 0 {
+            break
+        }
+        head = head.Next
+    }
+
+    return head
+}
+
+// head 到 end 之间反过来
+func reverseList(head *ListNode, end *ListNode) {
+    if head == end {
+        return
+    }
+
+    last := head
+    head = head.Next
+    // 要改每条边，所以需要访问链表
+    for head != end {
+        nextHead := head.Next
+        // 改一条边
+        head.Next = last
+        // last，head 向后移动一位
+        last, head = head, nextHead
+    }
+    end.Next = last
+}
+```
+***
