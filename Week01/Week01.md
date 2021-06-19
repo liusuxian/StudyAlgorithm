@@ -28,8 +28,8 @@ func merge(nums1 []int, m int, nums2 []int, n int) {
 #### 题目
 ##### 26. 删除有序数组中的重复项
 #### 地址
-##### https://leetcode-cn.com/problems/merge-sorted-array/
-#### 方法一：循环遍历
+##### https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/
+#### 方法一：循环遍历，条件满足就选择
 ##### 复杂度分析
 - 时间复杂度：O(n)。
 - 空间复杂度：O(1)。
@@ -45,6 +45,31 @@ func removeDuplicates(nums []int) int {
     }
 
     return n
+}
+```
+***
+#### 题目
+##### 283. 移动零
+#### 地址
+##### https://leetcode-cn.com/problems/move-zeroes/
+#### 方法一：循环遍历，条件满足就选择
+##### 复杂度分析
+- 时间复杂度：O(n)。
+- 空间复杂度：O(1)。
+##### Golang实现
+``` go
+func moveZeroes(nums []int) {
+    n := 0
+    for i := 0; i < len(nums); i++ {
+        if nums[i] != 0 {
+            nums[n] = nums[i]
+            n++
+        }
+    }
+
+    for ; n < len(nums); n++ {
+        nums[n] = 0
+    }
 }
 ```
 ***
