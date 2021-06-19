@@ -122,9 +122,10 @@ func reverseList(head *ListNode) *ListNode {
  *     Next *ListNode
  * }
  */
-func reverseKGroup(head *ListNode, k int) *ListNode {
+ func reverseKGroup(head *ListNode, k int) *ListNode {
+    // 主体思路：分组（找到每一组的开始、结尾），按组遍历
+    // 建立保护结点，指向链表头部
     protect := &ListNode{Next: head}
-    // 分组（找到每一组的开始、结尾），按组遍历
     // last = 上一组结尾
     last := protect
     for head != nil {
@@ -133,6 +134,7 @@ func reverseKGroup(head *ListNode, k int) *ListNode {
             break
         }
 
+        // 下一组的头结点
         nextGroupHead := end.Next
         // 处理 head 到 end 之间的 k-1 条边的反转
         reverseList(head, end)
